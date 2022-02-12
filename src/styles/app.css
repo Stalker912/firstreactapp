@@ -1,0 +1,32 @@
+* 
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#root
+{
+    display:grid;
+    justify-content: center;
+}
+.App
+{
+    width: 800px;
+    
+}
+.Post
+{
+    display: grid;
+    padding:  15px;
+    border: darkgreen 2px solid;
+    background-color: #39c980;
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+    grid-template-columns: 90% 10%;
+}
+.PostHead
+{
+    text-align: center;
+}

@@ -1,0 +1,10 @@
+.PostInp
+{
+    border: 1px solid black;
+    padding: 5px 15px;
+    color: black;
+    background-color: #39c980;
+    font-size: 15px;
+    width: 100%;
+    margin: 10px 0px;
+}

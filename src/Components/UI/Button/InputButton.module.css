@@ -1,0 +1,9 @@
+.inpBtn
+{
+    padding: 5px 15px;
+    background-color: #39c980;
+    color: black;
+    font-size: 15px;
+    border: 1px solid black;
+    cursor: pointer;
+}
