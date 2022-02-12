@@ -1,17 +1,18 @@
 import React from "react";
+import Inpbutton from "./UI/Button/InputButton"
 
-const PostItem = (props) =>
+const PostItem = ({number, post, deletePost, ...props}) =>
 {
     return(
         <div className="Post">
             <div className="PostContent">
-                <strong> {props.number}. {props.post.title} </strong>
+                <strong> {number}. {post.title} </strong>
                 <div>
-                    {props.post.body}
+                    {post.body}
                 </div>
             </div>
             <div className="PostBtns">
-                <button>Удалить</button>
+                <Inpbutton onClick={() => deletePost(post)}>Delete</Inpbutton>
             </div>
       </div>
     )
