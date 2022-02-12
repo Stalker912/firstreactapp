@@ -3,8 +3,6 @@ import PostItem from "./PostItem";
 
 const PostList = ({posts, title}) =>
 {
-    
-
     return (
         <div>
             <h1 className="PostHead"> {title} </h1>
@@ -13,8 +11,6 @@ const PostList = ({posts, title}) =>
                 <PostItem number = {index + 1} key={post.id.toString()} post = {post}/>)}
             </div>
         </div>
-        
-        
     )
 }
 
