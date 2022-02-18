@@ -30,3 +30,18 @@
 {
     text-align: center;
 }
+.PostNF
+{
+    display: grid;
+    font-size: 20px;
+    padding:  15px;
+    border: darkgreen 2px solid;
+    background-color: #39c980;
+    margin-top: 15px;
+    grid-template-columns: 100%;
+    text-align: center;
+}
+.Separator
+{
+    margin: 15px 0px;
+}

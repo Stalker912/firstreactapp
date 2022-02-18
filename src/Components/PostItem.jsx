@@ -1,5 +1,5 @@
 import React from "react";
-import Inpbutton from "./UI/Button/InputButton"
+import StButton from "./UI/Button/InputButton"
 
 const PostItem = ({number, post, deletePost, ...props}) =>
 {
@@ -12,7 +12,7 @@ const PostItem = ({number, post, deletePost, ...props}) =>
                 </div>
             </div>
             <div className="PostBtns">
-                <Inpbutton onClick={() => deletePost(post)}>Delete</Inpbutton>
+                <StButton onClick={() => deletePost(post)}>Delete</StButton>
             </div>
       </div>
     )
