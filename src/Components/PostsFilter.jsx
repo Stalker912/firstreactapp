@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React from "react"
 import PostInput from "./UI/Input/PostInput"
 import Selector from "./UI/Select/Selector"
 

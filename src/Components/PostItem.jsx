@@ -1,7 +1,7 @@
 import React from "react";
 import StButton from "./UI/Button/InputButton"
 
-const PostItem = ({number, post, deletePost, ...props}) =>
+const PostItem = ({number, post, remove, ...props}) =>
 {
     return(
         <div className="Post">
@@ -12,7 +12,7 @@ const PostItem = ({number, post, deletePost, ...props}) =>
                 </div>
             </div>
             <div className="PostBtns">
-                <StButton onClick={() => deletePost(post)}>Delete</StButton>
+                <StButton onClick={() => remove(post)}>Delete</StButton>
             </div>
       </div>
     )

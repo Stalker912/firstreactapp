@@ -1,40 +1,39 @@
-import React, { useState, useMemo} from "react";
+import axios from "axios";
+import React, { useState, useEffect} from "react";
+import PostService from "./API/PostService";
 import CreatePostForm from "./Components/CreatePostForm";
 import PostCreateWindow from "./Components/PostCreateModalWindow/PostCreateWindow";
 import PostsFilter from "./Components/PostsFilter";
 import PostList from "./Components/PostsList";
 import InputButton from "./Components/UI/Button/InputButton";
+import Loader from "./Components/UI/Loader/loader";
+import useFatching from "./Hooks/useFatching";
+import { usePosts } from "./Hooks/usePosts";
 import "./styles/app.css";
+import { getPageCount } from "./Utils/Pages";
 
 const App = () => 
 {
-  const [posts, setPosts] = useState( [
-  {id:1, title:"JavaScript_3_", body:"JavaScript is programming laenguage1"},
-  {id:2, title:"JavaScript_112_", body:"JavaScript is programming laenguage3"},
-  {id:3, title:"JavaScript_2_", body:"JavaScript is programming laenguage2"}])
-
+  const [posts, setPosts] = useState([])
   const [filter, setFilter] = useState({sort:"", query:""})
   const [VisibleCreatePost, setVisibleCreatepost] = useState(false)
+  const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
+  const [totalPages, setTotalPages] = useState(0)
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+  
+  const [fetchPost, isPostLoading, postError] = useFatching(async () =>{
+    const responce = await PostService.GetAll(limit, page)
+    setPosts(...posts, responce.data)
+    const totalCount = responce.headers["x-total-count"]
+    setTotalPages(getPageCount(totalCount,limit))
+  })
 
+  useEffect( () => {
+    fetchPost()
+  }, [])
 
-  const GetSortedPosts = () =>
-  {
-    if(filter.sort) return [...posts].sort((a,b) => a[filter.sort].localeCompare(b[filter.sort]))
-    else return posts
-  }
-  const sortedPosts = useMemo(GetSortedPosts, [filter.sort, posts])
-
-  const getSortedAndSearchedPosts = () =>
-  {
-    if(filter.query) return [...sortedPosts].filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase())
-                                                  || post.body.toLowerCase().includes(filter.query.toLowerCase()))
-    else return sortedPosts
-  }
-
-  const sortedAndSearchedPosts = useMemo(getSortedAndSearchedPosts, [filter.query, sortedPosts])
-
-  const addNewPost = (post) => 
-  {
+  const addNewPost = (post) => {
     setPosts([...posts, {...post, id: Date.now()}])
     setVisibleCreatepost(false)
   }
@@ -42,17 +41,18 @@ const App = () =>
 
   return (
     <div className="App">
-      <InputButton style = {{marginTop: 30}}onClick={()=>setVisibleCreatepost(true)}> Create Post </InputButton>
-      
+      <InputButton style = {{marginTop: 30}} onClick={()=>setVisibleCreatepost(true)}> Create Post </InputButton>
 
       <PostCreateWindow visible ={VisibleCreatePost} setVisible ={setVisibleCreatepost}> <CreatePostForm addNewPost={addNewPost}/> </PostCreateWindow>
 
       <hr className="Separator"/>
 
       <PostsFilter filter={filter} setFilter={setFilter}/>
-  
-      <PostList posts = {sortedAndSearchedPosts} title = "Posts List (JavaScript)" deletePost={deletePost}/>
-    
+      
+      {postError && <h1> Error! ${postError} </h1>}
+
+      {isPostLoading ? <div className="LoaderPosition"><Loader/></div> 
+      : <PostList posts = {sortedAndSearchedPosts} title = "Posts List (JavaScript)" remove={deletePost}/>}
     </div>
   );
 }
