@@ -1,0 +1,20 @@
+.pageBlock{
+    margin: 30px 0px 30px 0px;
+    display: flex;
+    justify-content: center;
+}
+
+.page{
+    margin: 0px 5px 0px 5px;
+    padding: 5px 15px;
+    background-color: #39c980;
+    color: black;
+    font-size: 15px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.pageCurrent{
+    border: 1px black solid;
+    font-weight: bold;
+    background: orange;
+}
